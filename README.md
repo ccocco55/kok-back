@@ -90,7 +90,58 @@
 
 <img width="945" height="237" alt="kok-qa" src="https://github.com/user-attachments/assets/f694f1fb-d526-451a-bfd0-bbeee8852911" />
 
-## 7. 📝총평
+## 7. ☁️ 인프라 구성도 
+
+🔗[Loadbalancer GitHub](https://github.com/ccocco55/actions-kok-loadbalancer)    
+
+![슬라이드3](https://github.com/user-attachments/assets/21b71112-ea81-4039-90f5-0a85f7ff6d22)
+
+
+
+### 🚀 KOK 프로젝트 배포 환경
+
+본 프로젝트는 CI/CD 자동화와 로드밸런싱을 통해 안정적이고 효율적인 배포 환경을 구축하였습니다. 전체 배포 흐름과 인프라 구성은 다음과 같습니다.
+
+### 1. 개발 및 코드 푸시
+- 개발자는 로컬 환경에서 기능을 개발한 후 GitHub 저장소에 코드를 Push합니다.
+
+### 2. GitHub Actions를 통한 CI/CD 자동화
+- 저장소에는 deploy.yml과 Dockerfile이 사전에 설정되어 있습니다.
+- GitHub Actions는 Git-Secret을 활용하여 비밀키를 안전하게 관리하며, 코드 푸시 시 자동으로 워크플로우를 실행합니다.
+- 빌드된 결과물은 AWS EC2 인스턴스로 전송됩니다.
+
+### 3. EC2에서의 애플리케이션 실행
+- EC2 인스턴스 내에서는 Docker를 통해 Spring Boot 애플리케이션이 컨테이너로 실행됩니다.
+
+### 4. 이중 서버 구성 및 이미지 관리
+- 트래픽 분산을 위해 Spring1, Spring2 두 개의 서버를 운영하고 있습니다.
+- 이미지 파일은 AWS S3를 활용하여 관리하고 있습니다.
+
+### 5. 데이터베이스 및 캐시 공유
+- 두 서버는 공통으로 PostgreSQL을 사용하여 주요 데이터를 저장하며,
+- Redis를 통해 세션 관리 및 캐싱 처리를 수행합니다.
+
+### 6. 로드밸런싱 및 트래픽 분산
+- 클라이언트의 요청은 AWS Route 53을 통해 Nginx로 전달됩니다.
+- Nginx는 least_conn 알고리즘을 사용하여 두 서버 중 부하가 적은 서버로 트래픽을 분산시킵니다.
+
+### ✅ 기대 효과
+- 서버 과부하를 방지하고, 장애 발생 시에도 안정적인 서비스 제공이 가능합니다.
+- 자동화된 배포 파이프라인을 통해 개발과 운영의 효율성을 높였습니다.
+
+---
+
+##  8. 🌐Cloudflare Tunnel 활용
+
+<img width="1919" height="885" alt="스크린샷 2025-11-19 162308" src="https://github.com/user-attachments/assets/49338fbf-72f7-4f0d-ba24-68e9f0ee6d8e" />
+<img width="1096" height="327" alt="스크린샷 2025-11-19 162637" src="https://github.com/user-attachments/assets/e211c228-0b84-4c22-bea2-2bd5f76c83f4" />
+
+
+---
+
+## 9. 🤖 AI
+
+## 10. 📝총평
 
 ### 🌟파견 팀 협업
 
@@ -104,6 +155,11 @@
 또한 서비스의 세부 요구사항은 팀원들과의 지속적인 대화를 통해 자연스럽게 파악할 수 있었고, 이를 바탕으로 기능 구현뿐 아니라 기획 의도에 부합하는 백엔드 로직을 설계하고 개선하는 데 기여할 수 있었습니다.  
 이번 협업을 통해 느낀 가장 큰 교훈은 코드리뷰와 커뮤니케이션이 협업의 핵심이라는 점입니다.  
 실무에 가까운 환경에서 다양한 역할을 경험하며 백엔드 개발자로서의 역량을 점검하고 성장할 수 있었던 값진 시간이었고, 앞으로의 개발 커리어에 있어 중요한 자산이 될 것이라 확신합니다.
+
+
+### 🌟AI
+
+
 
 
 
