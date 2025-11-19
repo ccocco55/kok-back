@@ -27,13 +27,13 @@ public class ConsoleExperienceApplicationServiceImpl implements ConsoleExperienc
         return consoleExperienceApplicationDAO.findApplicantDetail(memberId, experienceNoticeId);
     }
 
-//    목록
+    //    목록
     @Override
     public List<ConsoleExperienceApplicantDTO> getApplicationsByNoticeId(Long experienceNoticeId) {
         return consoleExperienceApplicationDAO.findApplicationsByNoticeId(experienceNoticeId);
     }
 
-//    여러 명의 지원자 상세 조회
+    //    여러 명의 지원자 상세 조회
     @Override
     public List<ConsoleExperienceApplicantDTO> getApplicationsDetailsByMemberIds(Long experienceNoticeId, List<Long> memberIdList) {
         List<ConsoleExperienceApplicantDTO> results = new ArrayList<>();
@@ -59,6 +59,26 @@ public class ConsoleExperienceApplicationServiceImpl implements ConsoleExperienc
         return results;
     }
 
+    //    평가하기 가능 여부 조회
+    public boolean isEvalOk(Long experienceNoticeId, Long memberId, Long requestExperienceId) {
+        RequestExperienceDTO exp=consoleExperienceApplicationDAO.findEvalOk(experienceNoticeId, memberId);
+        boolean requested=evaluationService.isReviewedThis(memberId, requestExperienceId);
+        LocalDate now = LocalDate.now();
+        System.out.println("accept: "+exp.getRequestExperienceStatus());
+        System.out.println("time: "+ exp.getExperienceEndDate().isBefore(now));
+        if(exp.getRequestExperienceStatus().equals(RequestStatus.ACCEPT)&&exp.getExperienceEndDate().isBefore(now)&&!requested){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //    지원자 상태 변경
+    @Override
+    public void updateApplicantStatus(Long userId, Long experienceNoticeId, RequestStatus requestExperienceStatus) {
+        consoleExperienceApplicationDAO.updateApplicantStatus(userId, experienceNoticeId, requestExperienceStatus);
+    }
+
     @Override
     public RequestDownloadUrlDTO getApplicationFileInfo(List<Long> memberIdList, Long experienceNoticeId) {
         RequestDownloadUrlDTO requestDownloadUrlDTO = new RequestDownloadUrlDTO();
@@ -80,28 +100,5 @@ public class ConsoleExperienceApplicationServiceImpl implements ConsoleExperienc
         requestDownloadUrlDTO.setUrls(downloadUrls);
         requestDownloadUrlDTO.setFileNames(fileNames);
         return requestDownloadUrlDTO;
-    }
-
-
-
-
-    //    평가하기 가능 여부 조회
-    @Override
-    public boolean isEvalOk(Long experienceNoticeId, Long memberId, Long requestExperienceId) {
-        RequestExperienceDTO exp=consoleExperienceApplicationDAO.findEvalOk(experienceNoticeId, memberId);
-        boolean requested=evaluationService.isReviewedThis(memberId, requestExperienceId);
-        LocalDate now = LocalDate.now();
-        System.out.println("accept: "+exp.getRequestExperienceStatus());
-        System.out.println("time: "+ exp.getExperienceEndDate().isBefore(now));
-        if(exp.getRequestExperienceStatus().equals(RequestStatus.ACCEPT)&&exp.getExperienceEndDate().isBefore(now)&&!requested){
-            return true;
-        } else{
-            return false;
-        }
-    }
-    //    지원자 상태 변경
-    @Override
-    public void updateApplicantStatus(Long userId, Long experienceNoticeId, RequestStatus requestExperienceStatus) {
-        consoleExperienceApplicationDAO.updateApplicantStatus(userId, experienceNoticeId, requestExperienceStatus);
     }
 }

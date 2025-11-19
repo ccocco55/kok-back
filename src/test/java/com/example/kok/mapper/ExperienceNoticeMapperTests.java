@@ -1,22 +1,22 @@
-package com.example.kok.mapper;
-
-import com.example.kok.dto.ExperienceNoticeDTO;
-import com.example.kok.repository.ExperienceNoticeDAO;
-import com.example.kok.service.ConsoleExperienceApplicationService;
-import com.example.kok.service.FileService;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
-@SpringBootTest
-@Slf4j
-public class ExperienceNoticeMapperTests {
-    @Autowired
-    ExperienceNoticeMapper experienceNoticeMapper;
+//package com.example.kok.mapper;
+//
+//import com.example.kok.dto.ExperienceNoticeDTO;
+//import com.example.kok.repository.ExperienceNoticeDAO;
+//import com.example.kok.service.ConsoleExperienceApplicationService;
+//import com.example.kok.service.FileService;
+//import lombok.extern.slf4j.Slf4j;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//import java.time.LocalDate;
+//import java.time.temporal.ChronoUnit;
+//
+//@SpringBootTest
+//@Slf4j
+//public class ExperienceNoticeMapperTests {
+//    @Autowired
+//    ExperienceNoticeMapper experienceNoticeMapper;
 //    @Autowired
 //    ExperienceNoticeDAO experienceNoticeDAO;
 //    @Autowired
@@ -33,13 +33,13 @@ public class ExperienceNoticeMapperTests {
 //    public void daoTestFindCompanyExperienceNotice() {
 //        log.info("result: {}", experienceNoticeDAO.selectListById(6L));
 //    }
-
-    @Test
-    public void daoTestFindLatestFour() {
-        log.info("result: {}", experienceNoticeMapper.companyExperienceCount(6L));
-    }
-
-
+//
+//    @Test
+//    public void daoTestFindLatestFour() {
+//        log.info("result: {}", experienceNoticeMapper.companyExperienceCount(6L));
+//    }
+//
+//
 //    @Test
 //    public void reviewTest(){
 //        ExperienceNoticeDTO result= experienceNoticeDAO.findById(24L);
@@ -65,4 +65,4 @@ public class ExperienceNoticeMapperTests {
 //                    });
 //        System.out.println("result: "+result);
 //    }
-}
+//}

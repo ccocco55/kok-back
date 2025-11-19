@@ -17,5 +17,3 @@ values
 
 insert into tbl_company_scale_category(company_scale_name)
 values('미선택');
-
-select * from tbl_company_scale_category;

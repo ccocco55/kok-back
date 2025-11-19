@@ -26,7 +26,7 @@ public class InternRestController implements InternRestControllerDocs {
     private final UserService userService;
     private final EvaluationService evaluationService;
 
-//    목록
+    //    목록
     @GetMapping("/{page}")
     public ResponseEntity<?> intList(@PathVariable("page") int page, Search search) {
 //        System.out.println("#######################################################");
@@ -38,7 +38,7 @@ public class InternRestController implements InternRestControllerDocs {
         return ResponseEntity.ok(internNoticeCriteriaDTO);
     }
 
-//    프로필 사진 url
+    //    프로필 사진 url
     @GetMapping("/profile")
     public String profile(Long companyId){
         CompanyProfileFileDTO profile=companyProfileFileDAO.findFileByCompanyId(companyId);
@@ -49,7 +49,7 @@ public class InternRestController implements InternRestControllerDocs {
         return profile.getFilePath();
     }
 
-//    상세 불러오기
+    //    상세 불러오기
     @GetMapping("/detail")
     public Map<String,Object> detail(Long companyId, Long internId) {
         Map<String,Object> result = new HashMap<>();
@@ -67,14 +67,14 @@ public class InternRestController implements InternRestControllerDocs {
 //        RequestInternDTO reqDTO = new RequestInternDTO();
 //        reqDTO.setInternNoticeId(internId);
 //        reqDTO.setMemberId(customUserDetails.getId());
-////        reqDTO.setMemberAlarmSettingId();
+    ////        reqDTO.setMemberAlarmSettingId();
 //        requestInternService.applyForIntern(reqDTO, fileIds);
 //    }
 
 //    공고 저장하기
     @PostMapping("/save")
     public ResponseEntity<?> saveIntern(@RequestParam Long internId,
-            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+                                        @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         if(customUserDetails!=null){
             SaveInternNoticeDTO saveInt=new SaveInternNoticeDTO();
             saveInt.setInternNoticeId(internId);
@@ -85,10 +85,10 @@ public class InternRestController implements InternRestControllerDocs {
         return ResponseEntity.notFound().build();
     }
 
-//    공고 저장 취소하기
+    //    공고 저장 취소하기
     @PostMapping("/unsave")
     public void unsaveIntern(@RequestParam Long internId,
-             @AuthenticationPrincipal CustomUserDetails customUserDetails){
+                             @AuthenticationPrincipal CustomUserDetails customUserDetails){
         SaveInternNoticeDTO deleteInt=new SaveInternNoticeDTO();
         deleteInt.setInternNoticeId(internId);
         deleteInt.setMemberId(customUserDetails.getId());
@@ -112,7 +112,7 @@ public class InternRestController implements InternRestControllerDocs {
 
     }
 
-//    간편지원 input에 넣을 유저 정보 불러오기
+    //    간편지원 input에 넣을 유저 정보 불러오기
     @GetMapping("/user")
     public ResponseEntity<UserDTO> loadUserDetails(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         if(customUserDetails!=null){
@@ -127,7 +127,7 @@ public class InternRestController implements InternRestControllerDocs {
     //    지원 여부 판별
     @GetMapping("/is-requested")
     public boolean isRequested(@RequestParam Long internId,
-            @AuthenticationPrincipal CustomUserDetails customUserDetails){
+                               @AuthenticationPrincipal CustomUserDetails customUserDetails){
         if(customUserDetails!=null){
             RequestInternDTO intern=new RequestInternDTO();
             intern.setMemberId(customUserDetails.getId());
@@ -139,27 +139,27 @@ public class InternRestController implements InternRestControllerDocs {
         return false;
     }
 
-//    간편지원 완료
+    //    간편지원 완료
     @PostMapping("/request")
     public void requestIntern(@RequestBody RequestInternDTO requestInternDTO,
-                                  @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+                              @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 //        System.out.println(requestInternDTO);
 //        System.out.println(customUserDetails.getId());
-    RequestInternDTO request=new RequestInternDTO();
-    request.setRequestInternMemberName(requestInternDTO.getRequestInternMemberName());
-    request.setRequestInternMemberEmail(requestInternDTO.getRequestInternMemberEmail());
-    request.setRequestInternMemberPhone(requestInternDTO.getRequestInternMemberPhone());
-    if(requestInternDTO.getRequestInternMemberUrl()!=null){
-        request.setRequestInternMemberUrl(requestInternDTO.getRequestInternMemberUrl());
+        RequestInternDTO request=new RequestInternDTO();
+        request.setRequestInternMemberName(requestInternDTO.getRequestInternMemberName());
+        request.setRequestInternMemberEmail(requestInternDTO.getRequestInternMemberEmail());
+        request.setRequestInternMemberPhone(requestInternDTO.getRequestInternMemberPhone());
+        if(requestInternDTO.getRequestInternMemberUrl()!=null){
+            request.setRequestInternMemberUrl(requestInternDTO.getRequestInternMemberUrl());
+        }
+        request.setFileId(requestInternDTO.getFileId());
+        request.setMemberId(customUserDetails.getId());
+        request.setInternNoticeId(requestInternDTO.getInternNoticeId());
+        System.out.println(request);
+        requestInternService.applyForIntern(request);
     }
-    request.setFileId(requestInternDTO.getFileId());
-    request.setMemberId(customUserDetails.getId());
-    request.setInternNoticeId(requestInternDTO.getInternNoticeId());
-    System.out.println(request);
-    requestInternService.applyForIntern(request);
-}
 
-//    평가 있는지 여부
+    //    평가 있는지 여부
     @GetMapping("/is-reviewed")
     public boolean isRequested(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         boolean result = evaluationService.isReviewed(customUserDetails.getId());

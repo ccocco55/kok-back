@@ -26,14 +26,14 @@ public class ConsoleExperienceNoticeApiController implements ConsoleExperienceNo
     private final EvaluationService evaluationService;
     private final RequestExperienceDAO requestExperienceDAO;
 
-//    공고 목록
+    //    공고 목록
     @GetMapping("/list/{page}")
     public ResponseEntity<ConsoleExperienceNoticeCriteriaDTO> list(
-                                  @PathVariable("page") int page,
-                                  @RequestParam(value = "status", required = false) Status status,
-                                  @RequestParam(required = false) String keyword,
-                                  @AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                  Model model) {
+            @PathVariable("page") int page,
+            @RequestParam(value = "status", required = false) Status status,
+            @RequestParam(required = false) String keyword,
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            Model model) {
 
         Long companyId = customUserDetails.getId();
         ConsoleExperienceNoticeCriteriaDTO experienceCriteriaDTO = experienceService.getList(companyId, page, status, keyword);
@@ -47,10 +47,10 @@ public class ConsoleExperienceNoticeApiController implements ConsoleExperienceNo
         return ResponseEntity.ok(experienceCriteriaDTO);
     }
 
-//    공고 상태 변경
+    //    공고 상태 변경
     @PutMapping("/{id}/status")
     public ResponseEntity<?> updateNoticeStatus(@PathVariable("id") Long id,
-                                          @RequestBody ConsoleExperienceNoticeDTO consoleExperienceDTO) {
+                                                @RequestBody ConsoleExperienceNoticeDTO consoleExperienceDTO) {
         experienceService.updateListStatus(id, consoleExperienceDTO.getExperienceNoticeStatus());
         return ResponseEntity.ok(consoleExperienceDTO);
     }
@@ -75,13 +75,13 @@ public class ConsoleExperienceNoticeApiController implements ConsoleExperienceNo
 //
 //    }
 
-//    공고 상세 - 지원자
+    //    공고 상세 - 지원자
     @GetMapping("/applicate-list/{experienceNoticeId}/{page}")
     public ResponseEntity<ConsoleExperienceApplicantCriteriaDTO> applicateList(@PathVariable("experienceNoticeId") Long experienceNoticeId,
-                                           @PathVariable("page") int page,
-                                           @RequestParam(required = false) RequestStatus status,
-                                           @AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                           Model model) {
+                                                                               @PathVariable("page") int page,
+                                                                               @RequestParam(required = false) RequestStatus status,
+                                                                               @AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                                               Model model) {
         ConsoleExperienceApplicantCriteriaDTO experienceCriteriaDTO = experienceDetailService.getApplicateList(experienceNoticeId, page, status);
         if(experienceCriteriaDTO == null || experienceCriteriaDTO.getApplicantLists().size() == 0){
             return ResponseEntity.ok(experienceCriteriaDTO);
@@ -93,14 +93,14 @@ public class ConsoleExperienceNoticeApiController implements ConsoleExperienceNo
         return ResponseEntity.ok(experienceCriteriaDTO);
     }
 
-//    삭제
+    //    삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteNotice(@PathVariable("id") Long id) {
         experienceService.deleteExperience(id);
         return ResponseEntity.ok("success");
     }
 
-//    여러 명의 지원자 파일
+    //    여러 명의 지원자 파일
     @PostMapping("/{experienceNoticeId}/applications/files")
     public ResponseEntity<RequestDownloadUrlDTO> getApplicantsFileUrls(
             @PathVariable Long experienceNoticeId,
@@ -108,7 +108,7 @@ public class ConsoleExperienceNoticeApiController implements ConsoleExperienceNo
         return ResponseEntity.ok(consoleExperienceApplicationService.getApplicationFileInfo(memberIdList, experienceNoticeId));
     }
 
-//    지원자 상태 변경
+    //    지원자 상태 변경
     @PutMapping("/applicant/{id}/status")
     public ResponseEntity<?> updateApplicantStatus(
             @PathVariable("id") Long userId,
@@ -118,7 +118,7 @@ public class ConsoleExperienceNoticeApiController implements ConsoleExperienceNo
         return ResponseEntity.ok("success");
     }
 
-//    평가할 수 있는지 여부
+    //    평가할 수 있는지 여부
     @GetMapping("/isEvalOk")
     public ResponseEntity<Boolean> isEvalOk(@RequestParam("experienceNoticeId") Long experienceNoticeId,
                                             @RequestParam("memberId") Long memberId) {
@@ -127,7 +127,7 @@ public class ConsoleExperienceNoticeApiController implements ConsoleExperienceNo
         return ResponseEntity.ok(result);
     }
 
-//    평가하기
+    //    평가하기
     @PostMapping("/go-review")
     @ResponseBody
     public void goReview(@RequestBody EvaluationDTO evaluation) {

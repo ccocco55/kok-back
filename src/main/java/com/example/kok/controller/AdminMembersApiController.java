@@ -2,6 +2,7 @@ package com.example.kok.controller;
 
 import com.example.kok.dto.AdminMemberCriteriaDTO;
 import com.example.kok.dto.UserMemberDTO;
+import com.example.kok.service.CommunityPostService;
 import com.example.kok.service.MemberService;
 import com.example.kok.util.Criteria;
 import com.example.kok.util.Search;

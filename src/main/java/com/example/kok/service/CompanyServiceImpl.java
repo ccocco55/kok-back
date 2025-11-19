@@ -160,7 +160,7 @@ public class CompanyServiceImpl implements CompanyService {
         return companiesCriteriaDTO;
     }
 
-//    인기 기업 목록
+    //    인기 기업 목록
     @Override
     public List<CompanyDTO> getCompaniesByFollowerCount() {
         List<CompanyDTO> companies = companyDAO.findCompaniesByFollowerCount();

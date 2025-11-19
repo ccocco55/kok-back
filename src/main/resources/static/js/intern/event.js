@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const contentMainList=document.querySelector(".content-main");
@@ -457,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const shareBtn = e.target;
             const textBox = saveToast.querySelector("p");
             // 공유하기
-            let url = `http://localhost:10000/intern/list?sharedCompanyId=${shareBtn.dataset.companyid}&sharedInternId=${shareBtn.dataset.internid}`;
+            let url = `http://kok-in.shop/intern/list?sharedCompanyId=${shareBtn.dataset.companyid}&sharedInternId=${shareBtn.dataset.internid}`;
             const textarea = document.createElement("textarea");
             document.body.appendChild(textarea);
             textarea.value = url;
@@ -816,7 +815,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 formFileLabel.textContent = "파일";
             }
         });
-    //     등록하기 눌렀을 때
+        //     등록하기 눌렀을 때
         const saveBtn=document.getElementById("pop-apply");
 
         saveBtn.addEventListener("click", async (e) => {
@@ -1103,7 +1102,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         phone.value=user.userPhone;
 
-        submitBtn.addEventListener("click", async () => {
+        submitBtn.replaceWith(submitBtn.cloneNode(true));
+        const newSubmitBtn = popup.querySelector(".popup-action .btn-primary");
+
+        newSubmitBtn.addEventListener("click", async () => {
 
             // 이름을 입력안했을때
             if (!name.value.trim()) {
@@ -1493,32 +1495,32 @@ function bannerActiveFn() {
     const banners = document.querySelectorAll(".banner-list .ad-banner");
     if(banners.length>0){
         let timer = null;
-    let currentIndex = -1;
+        let currentIndex = -1;
 
-    if (!banners) return;
+        if (!banners) return;
 
-    // 모두 숨기기
-    function hideAll() {
-        banners.forEach((banner) => banner.classList.remove("active"));
-    }
+        // 모두 숨기기
+        function hideAll() {
+            banners.forEach((banner) => banner.classList.remove("active"));
+        }
 
-    // 랜덤 배너 보이기
-    function showRandomBanner() {
-        hideAll();
-        let randomIndex;
-        do {
-            randomIndex = Math.floor(Math.random() * banners.length);
-        } while (randomIndex === currentIndex && banners.length > 1);
-        // 직전 배너와 겹치지 않게 처리
-        banners[randomIndex].classList.add("active");
-        currentIndex = randomIndex;
-    }
+        // 랜덤 배너 보이기
+        function showRandomBanner() {
+            hideAll();
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * banners.length);
+            } while (randomIndex === currentIndex && banners.length > 1);
+            // 직전 배너와 겹치지 않게 처리
+            banners[randomIndex].classList.add("active");
+            currentIndex = randomIndex;
+        }
 
-    // 최초 실행
-    showRandomBanner();
+        // 최초 실행
+        showRandomBanner();
 
-    // 3초마다 랜덤 배너 변경
-    timer = setInterval(showRandomBanner, 5000);
+        // 3초마다 랜덤 배너 변경
+        timer = setInterval(showRandomBanner, 5000);
     }
 
 }
@@ -1635,6 +1637,3 @@ document.getElementById("search-form")?.addEventListener("submit", e => {
     e.preventDefault();
     showList();
 });
-
-
-

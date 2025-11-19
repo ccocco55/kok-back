@@ -42,7 +42,7 @@ public class AuthController implements AuthControllerDocs{
     private final UserService userService;
     private final RedisTemplate redisTemplate;
 
-//    로그인
+    //    로그인
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody UserDTO userDTO,HttpServletRequest request ,HttpServletResponse response) {
 
@@ -104,7 +104,7 @@ public class AuthController implements AuthControllerDocs{
         }
     }
 
-//    로그아웃
+    //    로그아웃
     @PostMapping("logout")
     public void logout(@CookieValue(value = "accessToken", required = false) String token) {
 
